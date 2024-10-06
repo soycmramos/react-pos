@@ -1,7 +1,9 @@
+import Nav from './Nav'
+
 export default function Aside() {
 	return (
-		<aside>
-			ASIDE
+		<aside className='bg-white border-r border-gray-200'>
+			<Nav />
 		</aside>
 	)
 }
