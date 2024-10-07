@@ -14,14 +14,13 @@ export default function Orders() {
 		hour12: true
 	})
 
-	const arr = [0, 1, 0, 1, 1, 0, 1, 0]
-	arr.length = 5
+	const arr = [0, 1, 0, 1, 1, 0, 1, 0, 0, 1, 0, 1, 1, 0, 1, 0]
 
 	return (
-		<section className='p-6'>
-			<h2 className='text-4xl font-bold pb-4'>Órdenes</h2>
-			<div className='bg-white p-4 shadow-md'>
-				<table className='bg-white p-6 w-full text-left'>
+		<section className='p-6 bg-white h-full'>
+			<h2 className='text-4xl font-bold pb-6'>Órdenes</h2>
+			<div className='rounded-xl border border-gray-300'>
+				<table className='p-6 w-full text-left'>
 					<thead>
 						<tr>
 							<th className='p-4 border-gray-300 font-semibold'>Cliente</th>
@@ -38,7 +37,7 @@ export default function Orders() {
 								const color = x === 0 ? 'green' : 'red'
 								const content = x === 0 ? 'Cancelado' : 'Sin cancelar'
 								return (
-									<tr className='odd:bg-gray-100' key={Math.random()}>
+									<tr className='odd:bg-gray-50' key={Math.random()}>
 										<td className='p-4 border-y border-gray-300'>
 											<FiUser className='mr-1 mb-1 w-5 h-auto inline-block' />
 											<span>
