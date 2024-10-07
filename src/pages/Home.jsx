@@ -1,7 +1,5 @@
-import { useEffect } from 'react'
-
 export default function Home() {
-	useEffect(() => document.title = 'Home', [])
+	document.title = 'Home'
 
 	return (
 		<section>
