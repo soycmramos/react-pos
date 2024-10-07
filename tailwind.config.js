@@ -6,7 +6,7 @@ export default {
   ],
   theme: {
     fontFamily: {
-      sans: ['Poppins', 'system-ui', 'sans-serif']
+      sans: ['Inter', 'system-ui', 'sans-serif']
     },
     extend: {
       spacing: {
