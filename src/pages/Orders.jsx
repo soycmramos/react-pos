@@ -40,13 +40,13 @@ export default function Orders() {
 								return (
 									<tr className='odd:bg-gray-100' key={Math.random()}>
 										<td className='p-4 border-y border-gray-300'>
-											<FiUser className='mr-1 mb-1 w-6 h-auto inline-block' />
+											<FiUser className='mr-1 mb-1 w-5 h-auto inline-block' />
 											<span>
 												Carlos Mario Ramos Pérez
 											</span>
 										</td>
 										<td className='p-4 border-y border-gray-300'>
-											<FiCalendar className='mr-1 mb-1 w-6 h-auto inline-block' />
+											<FiCalendar className='mr-1 mb-1 w-5 h-auto inline-block' />
 											<span>
 												{date}
 											</span>
