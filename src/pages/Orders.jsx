@@ -35,7 +35,7 @@ export default function Orders() {
 								const color = x === 0 ? 'green' : 'red'
 								const content = x === 0 ? 'Cancelado' : 'Sin cancelar'
 								return (
-									<tr className='odd:bg-gray-100'>
+									<tr className='odd:bg-gray-100' key={Math.random()}>
 										<td className='py-3 border-y border-gray-300 flex items-center'>Carlos Mario Ramos Pérez</td>
 										<td className='py-3 border-y border-gray-300'>{date}</td>
 										<td className='py-3 border-y border-gray-300 text-center'>$ 5.000</td>
