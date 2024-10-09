@@ -18,11 +18,13 @@ export default function Orders() {
 
 	return (
 		<section className='p-6 bg-white h-full'>
-			<h2 className='text-4xl font-bold pb-6'>Órdenes</h2>
-			<div className='rounded-xl border border-gray-300'>
+			<article className='fixed top-header-height w-full py-6 bg-white shadow-sm'>
+				<h2 className='text-4xl font-bold'>Órdenes</h2>
+			</article>
+			<div className='rounded-xl border border-gray-300 mt-20'>
 				<table className='p-6 w-full text-left'>
 					<thead>
-						<tr>
+						<tr className='mt-24'>
 							<th className='p-4 border-gray-300 font-semibold'>Cliente</th>
 							<th className='p-4 border-gray-300 font-semibold'>Fecha</th>
 							<th className='p-4 border-gray-300 font-semibold text-center'>Total</th>
