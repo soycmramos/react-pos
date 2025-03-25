@@ -1,24 +1,22 @@
-@import "tailwindcss";
+@import url('https://fonts.googleapis.com/css2?family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap');
+@import 'tailwindcss';
 
 :root {
-  --bg-body: #f6f8fa;
-  --text-color: #62646a;
-  --title-color: #404145;
+	--bg-body: #f6f8fa;
+	--text-color: #404145;
+	--font-family: 'Ubuntu', system-ui, sans-serif;
 }
 
 @theme {
-  --color-primary: teal;
-  --color-success: hsl(150, 50%, 50%);
-  --color-warning: hsl(50, 70%, 60%);
-  --color-danger: hsl(10, 60%, 55%);
-  --color-info: hsl(210, 60%, 55%);
+	--color-primary: teal;
+	--color-success: hsl(150, 50%, 50%);
+	--color-warning: hsl(50, 70%, 60%);
+	--color-danger: hsl(10, 60%, 55%);
+	--color-info: hsl(210, 60%, 55%);
 }
 
 body {
-  background-color: var(--bg-body);
-  color: var(--text-color);
-}
-
-h1, h2, h3, h4, h5, h6 {
-  color: var(--title-color);
+	background-color: var(--bg-body);
+	color: var(--text-color);
+	font-family: var(--font-family);
 }
