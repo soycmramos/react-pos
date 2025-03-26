@@ -8,9 +8,9 @@ import Loader from '../components/Loader'
 import { FaRegUser, FaEllipsis, FaPlus, } from 'react-icons/fa6'
 import noDataImg from '../assets/no-data.svg'
 
-const Customers = () => {
+const { VITE_API_URL } = import.meta.env
 
-	const [isActive, setIsActive] = useState(true)
+const Customers = () => {
 	const [customers, setCustomers] = useState([])
 	const [search, setSearch] = useState('')
 	const [isLoading, setIsLoading] = useState(true)
@@ -18,7 +18,7 @@ const Customers = () => {
 	useEffect(() => {
 		(async () => {
 			try {
-				const response = await fetch('http://localhost:5000/customers')
+				const response = await fetch(`${VITE_API_URL}/customers`)
 				const { data } = await response.json()
 				setCustomers(data)
 			} catch (error) {
@@ -30,11 +30,11 @@ const Customers = () => {
 		})()
 	}, [])
 
-	const handleChange = e => {
-		setSearch(e.target.value)
-		const result = customers.filter(customer => customer.name.toLowerCase().includes(search.toLowerCase()))
-		setCustomers(result)
-	}
+	const handleChange = e => setSearch(e.target.value)
+
+	const results = !search
+		? customers
+		: customers.filter(customer => customer.name.toLowerCase().includes(search.toLowerCase()))
 
 	if (isLoading) {
 		return (
@@ -93,7 +93,7 @@ const Customers = () => {
 										</tr>
 									</thead>
 									<tbody>
-										{customers.map(customer => {
+										{results.map(customer => {
 											return (
 												<tr className='border-b border-gray-300 hover:bg-gray-100 transition-colors' key={customer.id}>
 													<td className='p-3 flex items-center gap-1'>
@@ -102,10 +102,10 @@ const Customers = () => {
 													</td>
 													<td className='p-3 text-center'>
 														<span className={twMerge(clsx('py-1 px-2 text-sm font-semibold rounded', {
-															'bg-success/25 text-green-900': isActive,
-															'bg-danger/25 text-red-900': !isActive,
+															'bg-success/25 text-green-900': true,
+															'bg-danger/25 text-red-900': false,
 														}))}>
-															{(isActive && 'Activo') || (!isActive && 'Inactivo')}
+															{(true && 'Activo') || (false && 'Inactivo')}
 														</span>
 													</td>
 													<td className='p-3'>
