@@ -47,7 +47,7 @@ const Customers = () => {
 		<section className='py-8'>
 			<Container>
 				<div className='mb-5'>
-					<h1 className='text-4xl font-semibold'>Clientes</h1>
+					<Link to='/customers'><h1 className='text-4xl font-semibold'>Clientes</h1></Link>
 				</div>
 				<div className='flex justify-end gap-2 mb-4'>
 					{

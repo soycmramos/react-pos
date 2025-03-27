@@ -1,7 +1,7 @@
 import Container from './../components/Container'
 import Input from './../components/Input'
 import Button from '../components/Button'
-import { redirect, useNavigate } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 
 const { VITE_API_URL } = import.meta.env
 
@@ -37,7 +37,7 @@ const AddNewCustomer = () => {
 		<section className='py-8'>
 			<Container>
 				<div className='mb-5'>
-					<h1 className='text-4xl font-semibold'>Clientes</h1>
+				<Link to='/customers'><h1 className='text-4xl font-semibold'>Clientes</h1></Link>
 				</div>
 			</Container>
 			<Container>
