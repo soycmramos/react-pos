@@ -7,7 +7,7 @@ import Button from './../components/Button'
 import Input from './../components/Input'
 import Empty from '../components/Empty';
 import Loader from '../components/Loader'
-import { FaRegUser, FaEllipsis, FaPlus } from 'react-icons/fa6'
+import { FaRegUser, FaEllipsis, FaPlus, FaRegTrashCan, FaRegPenToSquare } from 'react-icons/fa6'
 
 const { VITE_API_URL } = import.meta.env
 
@@ -15,6 +15,7 @@ const Customers = () => {
 	const [customers, setCustomers] = useState([])
 	const [search, setSearch] = useState('')
 	const [isLoading, setIsLoading] = useState(true)
+	const [showActionsMenu, setShowActionsMenu] = useState(true)
 
 	useEffect(() => {
 		(async () => {
@@ -33,6 +34,8 @@ const Customers = () => {
 
 	const handleChange = e => setSearch(e.target.value)
 
+	const handleActionsMenu = () => setShowActionsMenu(!showActionsMenu)
+
 	const results = !search
 		? customers
 		: customers.filter(customer => customer.name.toLowerCase().includes(search.toLowerCase()))
@@ -46,7 +49,7 @@ const Customers = () => {
 	return (
 		<section className='py-8'>
 			<Container className='mb-5'>
-				<Link to='/customers'><h1 className='text-4xl font-semibold'>Clientes</h1></Link>
+				<Link to='/customers'><h1 className='text-4xl font-semibold inline'>Clientes</h1></Link>
 			</Container>
 			<Container className='flex justify-end gap-2 mb-4'>
 				{
@@ -108,8 +111,11 @@ const Customers = () => {
 															{(true && 'Activo') || (false && 'Inactivo')}
 														</span>
 													</td>
-													<td className='p-3'>
-														<FaEllipsis className='size-7 cursor-pointer mx-auto' />
+													<td className='p-3 flex items-center justify-center gap-4'>
+														<FaRegTrashCan title='Eliminar' className='size-7 cursor-pointer transition-colors hover:text-danger' />
+														<Link to={`/customers/edit/${customer.id}`}>
+															<FaRegPenToSquare title='Editar' className='size-7 cursor-pointer transition-colors hover:text-info' />
+														</Link>
 													</td>
 												</tr>
 											)

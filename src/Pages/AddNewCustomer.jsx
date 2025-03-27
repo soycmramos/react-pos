@@ -37,7 +37,7 @@ const AddNewCustomer = () => {
 		<section className='py-8'>
 			<Container>
 				<div className='mb-5'>
-				<Link to='/customers'><h1 className='text-4xl font-semibold'>Clientes</h1></Link>
+				<Link to='/customers'><h1 className='text-4xl font-semibold inline'>Clientes</h1></Link>
 				</div>
 			</Container>
 			<Container>
