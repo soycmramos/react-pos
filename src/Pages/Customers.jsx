@@ -7,7 +7,7 @@ import Button from './../components/Button'
 import Input from './../components/Input'
 import Empty from '../components/Empty';
 import Loader from '../components/Loader'
-import { FaRegUser, FaEllipsis, FaPlus, } from 'react-icons/fa6'
+import { FaRegUser, FaEllipsis, FaPlus } from 'react-icons/fa6'
 
 const { VITE_API_URL } = import.meta.env
 
@@ -45,46 +45,46 @@ const Customers = () => {
 
 	return (
 		<section className='py-8'>
-			<Container>
-				<div className='mb-5'>
-					<Link to='/customers'><h1 className='text-4xl font-semibold'>Clientes</h1></Link>
-				</div>
-				<div className='flex justify-end gap-2 mb-4'>
-					{
-						customers.length > 0 && (
-							<Input
-								type='search'
-								name='filter-customer'
-								placeholder='Buscar...'
-								className='inline-flex w-auto'
-								value={search}
-								onChange={handleChange}
-							/>
-						)
-					}
-					<Link to='/customers/new'>
-						<Button variant='primary-outlined' className='inline-flex items-center gap-1'>
-							<FaPlus />Crear nuevo cliente
-						</Button>
-					</Link>
-				</div>
+			<Container className='mb-5'>
+				<Link to='/customers'><h1 className='text-4xl font-semibold'>Clientes</h1></Link>
+			</Container>
+			<Container className='flex justify-end gap-2 mb-4'>
 				{
-					!customers.length > 0
-						? (
-							<Empty message='No hay clientes por le momento. Comienza por crear uno.'>
-								<Link to='/customers/new'>
-									<Button variant='primary' className='inline-flex items-center gap-1'>
-										<FaPlus />Crear nuevo cliente
-									</Button>
-								</Link>
-							</Empty>
-						)
-						: (
-							<div className='p-4 bg-white shadow rounded'>
+					customers.length > 0 && (
+						<Input
+							type='search'
+							placeholder='Buscar...'
+							className='inline-flex w-auto'
+							value={search}
+							onChange={handleChange}
+						/>
+					)
+				}
+				<Link to='/customers/new'>
+					<Button variant='primary-outlined' className='inline-flex items-center gap-1'>
+						<FaPlus />Crear nuevo cliente
+					</Button>
+				</Link>
+			</Container>
+			{
+				!customers.length > 0
+					? (
+						<Empty message='No hay clientes por le momento. Comienza por crear uno.'>
+							<Link to='/customers/new'>
+								<Button variant='primary' className='inline-flex items-center gap-1'>
+									<FaPlus />Crear nuevo cliente
+								</Button>
+							</Link>
+						</Empty>
+					)
+					: (
+						<Container>
+							<div className='bg-white shadow rounded'>
 								<table className='table-fixed w-full mx-auto'>
 									<thead>
-										<tr className='border-b border-gray-300 text-gray-500'>
+										<tr className='border-b border-gray-300 text-text-color/75'>
 											<th className='p-3 w-1/4 font-normal text-left'>Nombre</th>
+											<th className='p-3 w-1/4 font-normal text-center'>identificación</th>
 											<th className='p-3 w-1/4 font-normal text-center'>Estado</th>
 											<th className='p-3 w-1/4 font-normal'>Acciones</th>
 										</tr>
@@ -96,6 +96,9 @@ const Customers = () => {
 													<td className='p-3 flex items-center gap-1'>
 														<FaRegUser className='size-7' />
 														{customer.name}
+													</td>
+													<td className='p-3 text-center'>
+														{customer.identification}
 													</td>
 													<td className='p-3 text-center'>
 														<span className={twMerge(clsx('py-1 px-2 text-sm font-semibold rounded', {
@@ -114,10 +117,10 @@ const Customers = () => {
 									</tbody>
 								</table>
 							</div>
-						)
-				}
-			</Container>
-		</section>
+						</Container>
+					)
+			}
+		</section >
 	)
 }
 
