@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react'
+import { Link } from 'react-router-dom'
 import { twMerge } from 'tailwind-merge'
 import { clsx } from 'clsx'
 import Container from '../components/Container'
@@ -48,9 +49,11 @@ const Customers = () => {
 				<img src={noDataImg} alt='No data' className='max-w-1/6 mx-auto' />
 				<p className='text-center'>No hay clientes por le momento. Comienza por crear uno.</p>
 				<div className='flex justify-center'>
-					<Button variant='primary' className='inline-flex items-center gap-1'>
-						<FaPlus />Crear nuevo cliente
-					</Button>
+					<Link to='/customers/new'>
+						<Button variant='primary' className='inline-flex items-center gap-1'>
+							<FaPlus />Crear nuevo cliente
+						</Button>
+					</Link>
 				</div>
 			</div>
 		)
@@ -75,9 +78,11 @@ const Customers = () => {
 							/>
 						)
 					}
-					<Button variant='primary-outlined' className='inline-flex items-center gap-1'>
-						<FaPlus />Crear nuevo cliente
-					</Button>
+					<Link to='/customers/new'>
+						<Button variant='primary-outlined' className='inline-flex items-center gap-1'>
+							<FaPlus />Crear nuevo cliente
+						</Button>
+					</Link>
 				</div>
 				{
 					!customers.length > 0
