@@ -5,9 +5,9 @@ import { clsx } from 'clsx'
 import Container from '../components/Container'
 import Button from './../components/Button'
 import Input from './../components/Input'
+import Empty from '../components/Empty';
 import Loader from '../components/Loader'
 import { FaRegUser, FaEllipsis, FaPlus, } from 'react-icons/fa6'
-import noDataImg from '../assets/no-data.svg'
 
 const { VITE_API_URL } = import.meta.env
 
@@ -43,22 +43,6 @@ const Customers = () => {
 		)
 	}
 
-	const NoCustomers = () => {
-		return (
-			<div className='flex flex-col gap-4 py-12'>
-				<img src={noDataImg} alt='No data' className='max-w-1/6 mx-auto' />
-				<p className='text-center'>No hay clientes por le momento. Comienza por crear uno.</p>
-				<div className='flex justify-center'>
-					<Link to='/customers/new'>
-						<Button variant='primary' className='inline-flex items-center gap-1'>
-							<FaPlus />Crear nuevo cliente
-						</Button>
-					</Link>
-				</div>
-			</div>
-		)
-	}
-
 	return (
 		<section className='py-8'>
 			<Container>
@@ -86,7 +70,15 @@ const Customers = () => {
 				</div>
 				{
 					!customers.length > 0
-						? <NoCustomers />
+						? (
+							<Empty message='No hay clientes por le momento. Comienza por crear uno.'>
+								<Link to='/customers/new'>
+									<Button variant='primary' className='inline-flex items-center gap-1'>
+										<FaPlus />Crear nuevo cliente
+									</Button>
+								</Link>
+							</Empty>
+						)
 						: (
 							<div className='p-4 bg-white shadow rounded'>
 								<table className='table-fixed w-full mx-auto'>
