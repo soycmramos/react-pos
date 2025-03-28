@@ -5,9 +5,11 @@ import { clsx } from 'clsx'
 import Container from '../components/Container'
 import Button from './../components/Button'
 import Input from './../components/Input'
-import Empty from '../components/Empty';
+import Empty from '../components/Empty'
 import Loader from '../components/Loader'
-import { FaRegUser, FaEllipsis, FaPlus, FaRegTrashCan, FaRegPenToSquare } from 'react-icons/fa6'
+import Modal from './../components/Modal'
+import { FaRegUser, FaPlus, FaRegTrashCan, FaRegPenToSquare } from 'react-icons/fa6'
+import { BsExclamationTriangle, BsBan } from 'react-icons/bs'
 
 const { VITE_API_URL } = import.meta.env
 
@@ -15,12 +17,19 @@ const Customers = () => {
 	const [customers, setCustomers] = useState([])
 	const [search, setSearch] = useState('')
 	const [isLoading, setIsLoading] = useState(true)
-	const [showActionsMenu, setShowActionsMenu] = useState(true)
+	const [showModal, setShowModal] = useState(false)
+
+	const handleModal = () => setShowModal(!showModal)
 
 	useEffect(() => {
 		(async () => {
 			try {
-				const response = await fetch(`${VITE_API_URL}/customers`)
+				const options = {
+					method: 'GET',
+					headers: { 'Accept': 'application/json' }
+				}
+
+				const response = await fetch(`${VITE_API_URL}/customers`, options)
 				const { data } = await response.json()
 				setCustomers(data)
 			} catch (error) {
@@ -34,100 +43,116 @@ const Customers = () => {
 
 	const handleChange = e => setSearch(e.target.value)
 
-	const handleActionsMenu = () => setShowActionsMenu(!showActionsMenu)
-
 	const results = !search
 		? customers
 		: customers.filter(customer => customer.name.toLowerCase().includes(search.toLowerCase()))
 
-	if (isLoading) {
-		return (
-			<Loader />
-		)
-	}
+	if (isLoading) return <Loader />
 
 	return (
-		<section className='py-8'>
-			<Container className='mb-5'>
-				<Link to='/customers'><h1 className='text-4xl font-semibold inline'>Clientes</h1></Link>
-			</Container>
-			<Container className='flex justify-end gap-2 mb-4'>
-				{
-					customers.length > 0 && (
-						<Input
-							type='search'
-							placeholder='Buscar...'
-							className='inline-flex w-auto'
-							value={search}
-							onChange={handleChange}
-						/>
-					)
-				}
-				<Link to='/customers/new'>
-					<Button variant='primary-outlined' className='inline-flex items-center gap-1'>
-						<FaPlus />Crear nuevo cliente
-					</Button>
+		<Container>
+			<section className='py-8'>
+				<Link to='/customers' className='mb-5 text-4xl font-semibold inline-block'>
+					<h1>Clientes </h1>
 				</Link>
-			</Container>
+				<div className='flex justify-end gap-2'>
+					{
+						customers.length > 0 && (
+							<Input
+								type='search'
+								placeholder='Buscar...'
+								className='inline-flex w-auto'
+								value={search}
+								onChange={handleChange}
+							/>
+						)
+					}
+					<Link to='/customers/new'>
+						<Button variant='primary-outlined' className='inline-flex items-center gap-1'>
+							<FaPlus />Crear nuevo cliente
+						</Button>
+					</Link>
+				</div>
+			</section>
+			<section>
+				{
+					!customers.length > 0
+						? (
+							<Empty message='No hay clientes por le momento. Comienza por crear uno.'>
+								<Link to='/customers/new'>
+									<Button variant='primary' className='inline-flex items-center gap-1'>
+										<FaPlus />Crear nuevo cliente
+									</Button>
+								</Link>
+							</Empty>
+						) : (
+							<table className='table-fixed w-full mx-auto bg-white shadow rounded'>
+								<thead>
+									<tr className='border-b border-gray-300 text-text-color/75'>
+										<th className='p-3 w-1/4 font-normal text-center'>Nombre</th>
+										<th className='p-3 w-1/4 font-normal text-center'>identificación</th>
+										<th className='p-3 w-1/4 font-normal text-center'>Estado</th>
+										<th className='p-3 w-1/4 font-normal text-center'>Acciones</th>
+									</tr>
+								</thead>
+								<tbody>
+									{results.map(customer => {
+										return (
+											<tr className='border-b border-gray-300 hover:bg-gray-100 transition-colors' key={customer.id}>
+												<td className='p-3 flex items-center gap-1'>
+													<FaRegUser className='size-7' />
+													{customer.name}
+												</td>
+												<td className='p-3 text-center'>
+													{customer.identification}
+												</td>
+												<td className='p-3 text-center'>
+													<span className={twMerge(clsx('py-1 px-2 text-sm font-semibold rounded', {
+														'bg-success/25 text-green-900': true,
+														'bg-danger/25 text-red-900': false,
+													}))}>
+														{(true && 'Activo') || (false && 'Inactivo')}
+													</span>
+												</td>
+												<td className='p-3 flex items-center justify-center gap-4'>
+													<Button className='p-0 outline-none' onClick={handleModal}>
+														<FaRegTrashCan title='Eliminar' className='size-7 cursor-pointer transition-colors text-text-color/75 hover:text-danger' />
+													</Button>
+													<Link to={`/customers/edit/${customer.id}`}>
+														<FaRegPenToSquare title='Editar' className='size-7 cursor-pointer transition-colors text-text-color/75 hover:text-info' />
+													</Link>
+												</td>
+											</tr>
+										)
+									})}
+								</tbody>
+							</table>
+						)
+				}
+			</section >
 			{
-				!customers.length > 0
-					? (
-						<Empty message='No hay clientes por le momento. Comienza por crear uno.'>
-							<Link to='/customers/new'>
-								<Button variant='primary' className='inline-flex items-center gap-1'>
-									<FaPlus />Crear nuevo cliente
-								</Button>
-							</Link>
-						</Empty>
-					)
-					: (
-						<Container>
-							<div className='bg-white shadow rounded'>
-								<table className='table-fixed w-full mx-auto'>
-									<thead>
-										<tr className='border-b border-gray-300 text-text-color/75'>
-											<th className='p-3 w-1/4 font-normal text-left'>Nombre</th>
-											<th className='p-3 w-1/4 font-normal text-center'>identificación</th>
-											<th className='p-3 w-1/4 font-normal text-center'>Estado</th>
-											<th className='p-3 w-1/4 font-normal'>Acciones</th>
-										</tr>
-									</thead>
-									<tbody>
-										{results.map(customer => {
-											return (
-												<tr className='border-b border-gray-300 hover:bg-gray-100 transition-colors' key={customer.id}>
-													<td className='p-3 flex items-center gap-1'>
-														<FaRegUser className='size-7' />
-														{customer.name}
-													</td>
-													<td className='p-3 text-center'>
-														{customer.identification}
-													</td>
-													<td className='p-3 text-center'>
-														<span className={twMerge(clsx('py-1 px-2 text-sm font-semibold rounded', {
-															'bg-success/25 text-green-900': true,
-															'bg-danger/25 text-red-900': false,
-														}))}>
-															{(true && 'Activo') || (false && 'Inactivo')}
-														</span>
-													</td>
-													<td className='p-3 flex items-center justify-center gap-4'>
-														<FaRegTrashCan title='Eliminar' className='size-7 cursor-pointer transition-colors hover:text-danger' />
-														<Link to={`/customers/edit/${customer.id}`}>
-															<FaRegPenToSquare title='Editar' className='size-7 cursor-pointer transition-colors hover:text-info' />
-														</Link>
-													</td>
-												</tr>
-											)
-										})}
-									</tbody>
-								</table>
-							</div>
-						</Container>
-					)
+				showModal && (
+					<Modal showModal={showModal} handleModal={handleModal}>
+						<BsExclamationTriangle className='size-24' />
+						<h1 className='text-primary text-2xl font-semibold text-center mb-1'>Eliminar cliente</h1>
+						<p className='text-center text-text-color/75'>¿Estás seguro de que deseas eliminar este cliente?</p>
+						<p className='text-center text-text-color/75 mb-4'>Esta acción no se puede deshacer</p>
+						<div className='flex justify-center gap-x-12 w-full'>
+							<Button className='flex items-center gap-x-1' onClick={handleModal}>
+								<BsBan className='size-5' />
+								No, cancelar
+							</Button>
+							<Button variant='danger-inverted' className='flex items-center gap-x-1'>
+								<FaRegTrashCan className='size-5' />
+								Sí, eliminar
+							</Button>
+						</div>
+					</Modal>
+				)
 			}
-		</section >
+		</Container >
 	)
 }
+
 
 export default Customers
