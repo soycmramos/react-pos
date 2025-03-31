@@ -3,11 +3,13 @@ import Layout from './layouts/Layout'
 import Customers from './Pages/Customers'
 import AddNewCustomer from './Pages/AddNewCustomer'
 import Products from './Pages/Products'
+import Home from './Pages/Home'
 
 const App = () => {
 	return (
 		<Layout>
 			<Routes>
+				<Route path='/' element={<Home />} />
 				<Route path='/customers' element={<Customers />} />
 				<Route path='/customers/new' element={<AddNewCustomer />} />
 				<Route path='/products' element={<Products />} />
