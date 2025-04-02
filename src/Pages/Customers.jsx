@@ -103,7 +103,7 @@ const Customers = () => {
 												<Button className='p-0 outline-none' onClick={handleModal}>
 													<FaRegTrashCan title='Eliminar' className='size-7 cursor-pointer transition-colors text-text-color/75 hover:text-danger' />
 												</Button>
-												<Link to={`/customers/edit/${customer.id}`}>
+												<Link to={`/customers/${customer.id}/edit`}>
 													<FaRegPenToSquare title='Editar' className='size-7 cursor-pointer transition-colors text-text-color/75 hover:text-info' />
 												</Link>
 											</td>
