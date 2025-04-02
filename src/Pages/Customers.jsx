@@ -7,6 +7,7 @@ import Container from '../components/Container'
 import Button from './../components/Button'
 import Input from './../components/Input'
 import Empty from '../components/Empty'
+import Error from './../components/Error'
 import Loader from '../components/Loader'
 import Modal from './../components/Modal'
 import { FaRegUser, FaPlus, FaRegTrashCan, FaRegPenToSquare } from 'react-icons/fa6'
@@ -36,9 +37,9 @@ const Customers = () => {
 				<Link to='/customers' className='mb-5 text-4xl font-semibold inline-block'>
 					<h1>Clientes</h1>
 				</Link>
-				<div className='flex justify-end gap-x-2'>
-					{
-						customers.length > 0 && (
+				{
+					!error && customers.length > 0 && (
+						<div className='flex justify-end gap-x-2'>
 							<Input
 								type='search'
 								placeholder='Buscar...'
@@ -46,19 +47,19 @@ const Customers = () => {
 								value={search}
 								onChange={handleChange}
 							/>
-						)
-					}
-					<Link to='/customers/new'>
-						<Button variant='primary-outlined' className='inline-flex items-center gap-1'>
-							<FaPlus />Crear nuevo cliente
-						</Button>
-					</Link>
-				</div>
+							<Link to='/customers/new'>
+								<Button variant='primary-outlined' className='inline-flex items-center gap-1'>
+									<FaPlus />Crear nuevo cliente
+								</Button>
+							</Link>
+						</div>
+					)
+				}
 			</section>
 			<section>
-				{error && <h1>ERROR</h1>}
+				{error && <Error />}
 				{
-					!error && !customers.length > 0 ? (
+					!error && !customers.length > 0 && (
 						<Empty message='No hay clientes por le momento. Comienza por crear uno.'>
 							<Link to='/customers/new'>
 								<Button variant='primary' className='inline-flex items-center gap-1'>
@@ -66,7 +67,10 @@ const Customers = () => {
 								</Button>
 							</Link>
 						</Empty>
-					) : (
+					)
+				}
+				{
+					!error && customers.length > 0 && (
 						<table className='table-fixed w-full mx-auto bg-white shadow rounded'>
 							<thead>
 								<tr className='border-b border-gray-300 text-text-color/75'>
