@@ -3,8 +3,8 @@ import Button from './Button'
 
 const Header = () => {
 	return (
-		<header className='bg-white shadow-sm p-3'>
-			<Container className='flex justify-between items-center'>
+		<header className='bg-white shadow-sm p-3 h-header-height'>
+			<Container className='flex justify-between h-full items-center'>
 				<a href="/">
 					<h1 className='text-3xl'>Logo</h1>
 				</a>
