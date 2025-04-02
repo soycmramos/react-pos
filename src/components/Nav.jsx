@@ -14,7 +14,7 @@ const Nav = () => {
 			<ul className='p-4 flex flex-col gap-y-1'>
 				<li>
 					<Link to='/customers' className={twMerge(clsx('flex items-center gap-x-2 w-full pl-4 py-2 rounded hover:bg-gray-500/10 transition-all', {
-						'bg-primary/15 text-primary hover:bg-primary/15': pathname === '/customers'
+						'bg-primary/15 text-primary hover:bg-primary/15': pathname.includes('/customers')
 					}))}>
 						<FaRegUser className='size-6' />
 						Clientes
@@ -22,7 +22,7 @@ const Nav = () => {
 				</li>
 				<li>
 					<Link to='/products' className={twMerge(clsx('flex items-center gap-x-2 w-full pl-4 py-2 rounded hover:bg-gray-500/10 transition-all', {
-						'bg-primary/15 text-primary hover:bg-primary/15': pathname === '/products'
+						'bg-primary/15 text-primary hover:bg-primary/15': pathname.includes('/products')
 					}))}>
 						<HiOutlineShoppingCart className='size-6' />
 						Productos
@@ -30,7 +30,7 @@ const Nav = () => {
 				</li>
 				<li>
 					<Link to='/orders' className={twMerge(clsx('flex items-center gap-x-2 w-full pl-4 py-2 rounded hover:bg-gray-500/10 transition-all', {
-						'bg-primary/15 text-primary hover:bg-primary/15': pathname === '/orders'
+						'bg-primary/15 text-primary hover:bg-primary/15': pathname.includes('/orders')
 					}))}>
 						<PiCallBell className='size-6' />
 						Órdenes
