@@ -3,7 +3,7 @@ import Button from './Button'
 
 const Header = () => {
 	return (
-		<header className='bg-white shadow-sm p-3 h-header-height'>
+		<header className='border-b border-b-gray-300 p-3 h-header-height'>
 			<Container className='flex justify-between h-full items-center'>
 				<a href="/">
 					<h1 className='text-3xl'>Logo</h1>

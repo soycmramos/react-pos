@@ -10,7 +10,7 @@ const Nav = () => {
 	const { pathname } = useLocation()
 
 	return (
-		<nav className='border-r border-r-gray-300 shadow'>
+		<nav className='border-r border-r-gray-300'>
 			<ul className='p-4 flex flex-col gap-y-1'>
 				<li>
 					<Link to='/customers' className={twMerge(clsx('flex items-center gap-x-2 w-full pl-4 py-2 rounded hover:bg-gray-500/10 transition-all', {
